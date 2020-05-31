@@ -3,7 +3,9 @@ Hello in Go
 
 ## Versions
 
-v1: english
+v1: Hello
+
+v2: Bonjour
 
 ## Version tagging
 
