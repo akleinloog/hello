@@ -32,7 +32,7 @@ func main() {
 func Hello(w http.ResponseWriter, r *http.Request) {
 
 	requestNr++
-	message := fmt.Sprintf("Go Hello %d from %s on %s ./%s", requestNr, host, r.Method, r.URL.Path[1:])
-	log.Println(message)
-	fmt.Fprintf(w, message)
+	message := fmt.Sprintf("Go Hello %d from %s on %s ./%s\n", requestNr, host, r.Method, r.URL.Path[1:])
+	log.Print(message)
+	fmt.Fprint(w, message)
 }
