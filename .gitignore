@@ -1,0 +1,8 @@
+# Go compiled output
+hello
+
+# MacOs files
+.DS_Store
+
+# Goland files
+.idea
