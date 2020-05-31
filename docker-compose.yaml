@@ -1,0 +1,10 @@
+version: '3.7'
+
+services:
+  hello:
+    container_name: hello
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    ports:
+      - 10080:80
