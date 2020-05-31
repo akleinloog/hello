@@ -7,6 +7,8 @@ v1: Hello
 
 v2: Bonjour
 
+v3: Aloha
+
 ## Version tagging
 
 ```
