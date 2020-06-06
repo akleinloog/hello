@@ -24,11 +24,14 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var clientPort int
+
 // getCmd represents the get command
 var getCmd = &cobra.Command{
 	Use:   "get",
 	Short: "Gets an hello from the HTTP Server",
-	Long:  `Calls the localhost at port 80 and dumps the answer on the standard out.`,
+	Long: `Calls the localhost and dumps the answer on the standard out.
+If no port is specified, it will use port 80 as default.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		get()
 	},
@@ -36,10 +39,12 @@ var getCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(getCmd)
+
+	getCmd.Flags().IntVarP(&clientPort, "port", "p", 80, "port number")
 }
 
 func get() {
-	resp, err := http.Get("http://localhost")
+	resp, err := http.Get(fmt.Sprintf("http://localhost:%d", clientPort))
 	if err != nil {
 		log.Println(err)
 	}

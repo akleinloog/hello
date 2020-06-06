@@ -25,15 +25,17 @@ import (
 )
 
 var (
-	requestNr int64  = 0
-	host      string = "unknown"
+	requestNr  int64  = 0
+	host       string = "unknown"
+	serverPort int
 )
 
 // serveCmd represents the serve command
 var serveCmd = &cobra.Command{
 	Use:   "serve",
 	Short: "Starts the HTTP Server.",
-	Long:  `Starts the HTTP Server listening at port 80, where it will return a simple hello on any request.`,
+	Long: `Starts the HTTP Server that will return a simple hello on any request.
+The default port is 80, a different port can be specified if so desired.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		listen()
 	},
@@ -41,6 +43,8 @@ var serveCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(serveCmd)
+
+	serveCmd.Flags().IntVarP(&serverPort, "port", "p", 80, "port number")
 }
 
 func listen() {
@@ -57,7 +61,9 @@ func listen() {
 
 	http.HandleFunc("/", hello)
 
-	err = http.ListenAndServe(":80", nil)
+	log.Printf("Listening on port %d\n", serverPort)
+
+	err = http.ListenAndServe(fmt.Sprintf(":%d", serverPort), nil)
 	if err != nil {
 		log.Fatal(err)
 	}
