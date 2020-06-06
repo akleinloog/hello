@@ -18,4 +18,4 @@ LABEL maintainer="arnoud@kleinloog.ch" \
     vcs-ref=${VCS_REF}
 COPY --from=builder /go/src/hello/hello .
 EXPOSE 80
-CMD ["./hello"]
+CMD ["./hello", "serve"]
