@@ -61,7 +61,7 @@ func listen() {
 		host = currentHost
 	}
 
-	log.Println("Starting Bonjour Server on " + host)
+	log.Println("Starting Aloha Server on " + host)
 
 	server80 := http.NewServeMux()
 	server80.HandleFunc("/", hello)
@@ -92,7 +92,7 @@ func listen() {
 func hello(w http.ResponseWriter, r *http.Request) {
 
 	requestNr++
-	message := fmt.Sprintf("Go Bonjour %d from %s on %s ./%s\n", requestNr, host, r.Method, r.URL.Path[1:])
+	message := fmt.Sprintf("Go Aloha %d from %s on %s ./%s\n", requestNr, host, r.Method, r.URL.Path[1:])
 	log.Print(message)
 	fmt.Fprint(w, message)
 }
