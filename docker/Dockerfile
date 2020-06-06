@@ -17,5 +17,5 @@ LABEL maintainer="arnoud@kleinloog.ch" \
     vcs_url="https://github.com/akleinloog/hello" \
     vcs-ref=${VCS_REF}
 COPY --from=builder /go/src/hello/hello .
-EXPOSE 80
+EXPOSE 80 8080
 CMD ["./hello", "serve"]
