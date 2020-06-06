@@ -100,10 +100,10 @@ func hello(w http.ResponseWriter, r *http.Request) {
 func aliveCheck(w http.ResponseWriter, r *http.Request) {
 
 	if isAlive {
-		log.Print("Liveness Check: Alive")
+		log.Printf("Liveness Check: Alive on %s\n", host)
 		w.WriteHeader(http.StatusOK)
 	} else {
-		log.Print("Liveness Check: Not Alive")
+		log.Printf("Liveness Check: Not Alive on %s\n", host)
 		w.WriteHeader(http.StatusConflict)
 	}
 }
@@ -111,15 +111,17 @@ func aliveCheck(w http.ResponseWriter, r *http.Request) {
 func readyCheck(w http.ResponseWriter, r *http.Request) {
 
 	if isReady {
-		log.Print("Readiness Check: Ready")
+		log.Printf("Readiness Check: Ready on %s\n", host)
 		w.WriteHeader(http.StatusOK)
 	} else {
-		log.Print("Readiness Check: Not Ready")
+		log.Printf("Readiness Check: Not Ready on %s\n", host)
 		w.WriteHeader(http.StatusConflict)
 	}
 }
 
 func toggleAlive(w http.ResponseWriter, r *http.Request) {
+
+	log.Printf("Toggle Liveness Check on %s\n", host)
 
 	isAlive = !isAlive
 
@@ -127,6 +129,8 @@ func toggleAlive(w http.ResponseWriter, r *http.Request) {
 }
 
 func toggleReady(w http.ResponseWriter, r *http.Request) {
+
+	log.Printf("Toggle Readiness Check on %s\n", host)
 
 	isReady = !isReady
 
