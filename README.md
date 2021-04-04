@@ -107,6 +107,8 @@ v2: Bonjour
 
 v3: Aloha
 
+v4: Customizable from Environment Variable GREETING, defaults to Hello
+
 ## Version tagging
 
 ```
