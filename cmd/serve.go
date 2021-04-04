@@ -22,12 +22,14 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 var (
 	requestNr  int64  = 0
 	host       string = "unknown"
 	serverPort int
+	greeting   string
 	isAlive    bool = true
 	isReady    bool = true
 )
@@ -47,6 +49,18 @@ func init() {
 	rootCmd.AddCommand(serveCmd)
 
 	serveCmd.Flags().IntVarP(&serverPort, "port", "p", 80, "port number")
+	serveCmd.Flags().StringVarP(&greeting, "greeting", "g", "Hello", "greeting text")
+
+	viper.BindPFlag("port", serveCmd.Flags().Lookup("port"))
+	viper.BindPFlag("greeting", serveCmd.Flags().Lookup("greeting"))
+}
+
+func Port() int {
+	return viper.GetInt("port")
+}
+
+func Greeting() string {
+	return viper.GetString("greeting")
 }
 
 func listen() {
@@ -61,13 +75,13 @@ func listen() {
 		host = currentHost
 	}
 
-	log.Println("Starting Aloha Server on " + host)
+	log.Printf("Starting %s Server on %s port %d", Greeting(), host, Port())
 
 	server80 := http.NewServeMux()
 	server80.HandleFunc("/", hello)
 
 	go func() {
-		err := http.ListenAndServe(fmt.Sprintf(":%d", serverPort), server80)
+		err := http.ListenAndServe(fmt.Sprintf(":%d", Port()), server80)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -92,7 +106,7 @@ func listen() {
 func hello(w http.ResponseWriter, r *http.Request) {
 
 	requestNr++
-	message := fmt.Sprintf("Go Aloha %d from %s on %s ./%s\n", requestNr, host, r.Method, r.URL.Path[1:])
+	message := fmt.Sprintf("Go %s %d from %s on %s ./%s\n", Greeting(), requestNr, host, r.Method, r.URL.Path[1:])
 	log.Print(message)
 	fmt.Fprint(w, message)
 }
