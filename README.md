@@ -7,6 +7,13 @@ Multiple versions are available to facilitate Kubernetes experiments. The only d
 
 The server listens for requests on port 80 for requests and in addition, liveness checks and readiness checks are availabe on port 8080.
 
+## Run locally
+
+To start a local instance, simply run
+```bash
+go run main.go serve
+```
+
 ## Docker
 
 You can start an instance using docker run, for example:
