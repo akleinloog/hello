@@ -30,6 +30,11 @@ To facilitate Kubernetes experiments you can toggle the liveness check by:
 And the readiness check by:
 [http://localhost:10880/toggleReady](http://localhost:10880/toggleReady)
 
+To customize the greeting:
+```bash
+docker run -p 10080:80 -p 10880:8080 -e GREETING='Hi' akleinloog/hello:v4
+```
+
 ## Docker-compose
 
 You can also use a docker compose file, for example:

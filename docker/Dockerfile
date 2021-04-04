@@ -1,9 +1,7 @@
 # Build Stage
-FROM golang:1.14.3-alpine3.11 AS builder
+FROM golang:1.16.3-alpine3.13 AS builder
 RUN apk add git
 WORKDIR /go/src/hello
-ADD ./go.* ./
-RUN go mod download
 ADD ./ .
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o hello
 
